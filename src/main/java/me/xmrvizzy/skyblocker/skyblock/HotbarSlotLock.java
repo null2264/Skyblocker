@@ -16,7 +16,7 @@ public class HotbarSlotLock {
     public static void init() {
         hotbarSlotLock = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.hotbarSlotLock",
-                GLFW.GLFW_KEY_H,
+                GLFW.GLFW_KEY_L,
                 "key.categories.skyblocker"
         ));
     }

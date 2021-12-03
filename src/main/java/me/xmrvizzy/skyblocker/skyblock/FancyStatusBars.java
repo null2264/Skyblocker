@@ -12,7 +12,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.IllegalStateException;
 
 public class FancyStatusBars extends DrawableHelper {
     private static final MinecraftClient client = MinecraftClient.getInstance();

@@ -12,11 +12,12 @@ import net.minecraft.util.Identifier;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.IllegalStateException;
 
 public class FancyStatusBars extends DrawableHelper {
     private static final MinecraftClient client = MinecraftClient.getInstance();
     private static final Identifier BARS = new Identifier(SkyblockerMod.NAMESPACE,"textures/gui/bars.png");
-    private static final Pattern ACTION_BAR_STATUS = Pattern.compile("^§[6c]([0-9]+)/([0-9]+)❤(?:\\+§c[0-9]+\\S)? {3,}(?:§a([0-9]+)§a❈ Defense|(\\S+(?: \\S+)*)) {3,}(?:§b([0-9]+)/([0-9]+)✎ (?:Mana|§3([0-9]+)ʬ)?|(\\S+(?: \\S+)*))(.*)$");
+    private static final Pattern ACTION_BAR_STATUS = Pattern.compile("^§[6c](?<curHP>[0-9]+)/(?<maxHP>[0-9]+)❤(?:\\+§c(?<upHP>[0-9]+)\\S)? {3,}(?:(?:§a(?<curDef>[0-9]+)§a❈ Defense|(?<invDef>\\S+(?: \\S+)*)))? {3,}(?:§b(?<curMP>[0-9]+)/(?<maxMP>[0-9]+)✎ Mana|(?<invMPName>\\S+(?: \\S+)*))(?: {3,}(?<invMP>\\S+(?: \\S+)*))?(?<EOL>.*)$");
     private final Resource health;
     private final Resource mana;
     private int defense;
@@ -33,19 +34,22 @@ public class FancyStatusBars extends DrawableHelper {
         Matcher matcher = ACTION_BAR_STATUS.matcher(actionBar);
         if(!matcher.matches())
             return false;
-        health.set(matcher.group(1), matcher.group(2));
-        if(matcher.group(3) != null)
-            defense = Integer.parseInt(matcher.group(3));
-        if(matcher.group(5) != null) {
-            mana.set(matcher.group(5), matcher.group(6));
-            if(matcher.group(7) != null)
-                mana.add(Integer.parseInt(matcher.group(7)));
+	// Health
+        health.set(matcher.group("curHP"), matcher.group("maxHP"));
+	// Defense
+        if(matcher.group("curDef") != null)
+            defense = Integer.parseInt(matcher.group("curDef"));
+	// Mana
+        if(matcher.group("curMP") != null) {
+            mana.set(matcher.group("curMP"), matcher.group("maxMP"));
+            if(matcher.group("invMPName") != null)
+                mana.add(Integer.parseInt(matcher.group("invMPName")));
         }
 
         StringBuilder sb = new StringBuilder();
-        appendIfNotNull(sb, matcher.group(4));
-        appendIfNotNull(sb, matcher.group(8));
-        appendIfNotNull(sb, matcher.group(9));
+        appendIfNotNull(sb, matcher.group("invDef"));
+        appendIfNotNull(sb, matcher.group("invMP"));
+        appendIfNotNull(sb, matcher.group("EOL"));
 
         if(!sb.isEmpty()) {
             assert client.player != null;

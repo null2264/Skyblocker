@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class FancyStatusBars extends DrawableHelper {
     private static final MinecraftClient client = MinecraftClient.getInstance();
     private static final Identifier BARS = new Identifier(SkyblockerMod.NAMESPACE,"textures/gui/bars.png");
-    private static final Pattern ACTION_BAR_STATUS = Pattern.compile("^§[6c](?<curHP>[0-9]+)/(?<maxHP>[0-9]+)❤(?:\\+§c(?<upHP>[0-9]+)\\S)? {3,}(?:(?:§a(?<curDef>[0-9]+)§a❈ Defense|(?<invDef>\\S+(?: \\S+)*)))? {3,}(?:§b(?<curMP>[0-9]+)/(?<maxMP>[0-9]+)✎ Mana|(?<invMPName>\\S+(?: \\S+)*))(?: {3,}(?<invMP>\\S+(?: \\S+)*))?(?<EOL>.*)$");
+    private static final Pattern ACTION_BAR_STATUS = Pattern.compile("^§[6c](?<curHP>[0-9]+)/(?<maxHP>[0-9]+)❤(?:\\+§c(?<upHP>[0-9]+)\\S)? (?: {2,}(?:§a(?<curDef>[0-9]+)§a❈ Defense|(?<invDef>\\S+(?: \\S+)*)))? {3,}(?:§b(?<curMP>[0-9]+)/(?<maxMP>[0-9]+)✎ Mana|(?<invMPName>\\S+(?: \\S+)*))(?: {3,}(?<invMP>\\S+(?: \\S+)*))?(?<EOL>.*)$");
     private final Resource health;
     private final Resource mana;
     private int defense;

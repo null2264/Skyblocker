@@ -1,3 +1,10 @@
+# Release 1.4.2
+
+Fixes
+* Fixed fire damage (or any damage that bypass Defense) not update the health bar
+
+Full Changelog: ?
+---
 # Release 1.4.1
 
 Fixes

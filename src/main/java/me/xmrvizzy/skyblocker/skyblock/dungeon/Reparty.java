@@ -9,9 +9,10 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Reparty extends ChatListener {
-    private static final MinecraftClient client = MinecraftClient.getInstance();
+public class Reparty extends ChatListener
+{
     public static final Pattern PLAYER = Pattern.compile(" ([a-zA-Z0-9_]{2,16}) ●");
+    private static final MinecraftClient client = MinecraftClient.getInstance();
     private static final int SLEEP_TIME = 600;
 
     private String[] players;
@@ -22,14 +23,14 @@ public class Reparty extends ChatListener {
         super("^(?:You are not currently in a party\\.|Party (?:Membe|Moderato)rs(?: \\(([0-9]+)\\)|:( .*)))$");
         repartying = false;
         ClientCommandManager.DISPATCHER.register(
-                ClientCommandManager.literal("rp").executes(context -> {
-                    if (!Utils.isSkyblock || repartying)
-                        return 0;
-                    assert client.player != null;
-                    repartying = true;
-                    client.player.sendChatMessage("/p list");
+            ClientCommandManager.literal("rp").executes(context -> {
+                if (!Utils.isSkyblock || repartying)
                     return 0;
-                })
+                assert client.player != null;
+                repartying = true;
+                client.player.sendChatMessage("/p list");
+                return 0;
+            })
         );
     }
 

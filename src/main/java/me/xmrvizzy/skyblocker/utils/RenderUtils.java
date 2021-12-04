@@ -1,25 +1,15 @@
 package me.xmrvizzy.skyblocker.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import me.xmrvizzy.skyblocker.utils.color.QuadColor;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
+import net.minecraft.util.math.*;
 
-public class RenderUtils {
+public class RenderUtils
+{
 
     // -------------------- Outline Boxes --------------------
 
@@ -74,9 +64,9 @@ public class RenderUtils {
 
         double tickDelta = (double) MinecraftClient.getInstance().getTickDelta();
         return new Vec3d(
-                e.getX() - MathHelper.lerp(tickDelta, e.lastRenderX, e.getX()),
-                e.getY() - MathHelper.lerp(tickDelta, e.lastRenderY, e.getY()),
-                e.getZ() - MathHelper.lerp(tickDelta, e.lastRenderZ, e.getZ()));
+            e.getX() - MathHelper.lerp(tickDelta, e.lastRenderX, e.getX()),
+            e.getY() - MathHelper.lerp(tickDelta, e.lastRenderY, e.getY()),
+            e.getZ() - MathHelper.lerp(tickDelta, e.lastRenderZ, e.getZ()));
     }
 
     public static void setup() {

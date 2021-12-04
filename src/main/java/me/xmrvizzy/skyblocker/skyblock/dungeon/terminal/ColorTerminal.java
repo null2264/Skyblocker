@@ -15,42 +15,11 @@ import org.apache.logging.log4j.Logger;
 import java.util.*;
 
 
-public class ColorTerminal extends ContainerSolver {
+public class ColorTerminal extends ContainerSolver
+{
     private static final Logger LOGGER = LogManager.getLogger(ColorTerminal.class.getName());
     private static final Map<String, DyeColor> colorFromName;
-    private DyeColor targetColor;
     private static final Map<Item, DyeColor> itemColor;
-
-    public ColorTerminal() {
-        super("^Select all the ([A-Z ]+) items!$");
-    }
-
-    @Override
-    public boolean isEnabled() {
-        targetColor = null;
-        return SkyblockerConfig.get().locations.dungeons.terminals.solveColor;
-    }
-
-    @Override
-    public List<ColorHighlight> getColors(String[] groups, Map<Integer, ItemStack> slots) {
-        trimEdges(slots, 6);
-        List<ColorHighlight> highlights = new ArrayList<>();
-        String colorString = groups[0];
-        if(targetColor == null) {
-            targetColor = colorFromName.get(colorString);
-            if(targetColor == null) {
-                LOGGER.error("[Skyblocker] Couldn't find dye color corresponding to \"" + colorString + "\"");
-                return Collections.emptyList();
-            }
-        }
-        for(Map.Entry<Integer, ItemStack> slot : slots.entrySet()) {
-            ItemStack itemStack = slot.getValue();
-            if(!itemStack.hasEnchantments() && targetColor.equals(itemColor.get(itemStack.getItem())))
-                highlights.add(new ColorHighlight(slot.getKey(), GREEN_HIGHLIGHT));
-        }
-        return highlights;
-    }
-
 
     static {
         colorFromName = new HashMap<>();
@@ -67,5 +36,37 @@ public class ColorTerminal extends ContainerSolver {
         itemColor.put(Items.LAPIS_LAZULI, DyeColor.BLUE);
         itemColor.put(Items.COCOA_BEANS, DyeColor.BROWN);
         itemColor.put(Items.INK_SAC, DyeColor.BLACK);
+    }
+
+    private DyeColor targetColor;
+
+    public ColorTerminal() {
+        super("^Select all the ([A-Z ]+) items!$");
+    }
+
+    @Override
+    public boolean isEnabled() {
+        targetColor = null;
+        return SkyblockerConfig.get().locations.dungeons.terminals.solveColor;
+    }
+
+    @Override
+    public List<ColorHighlight> getColors(String[] groups, Map<Integer, ItemStack> slots) {
+        trimEdges(slots, 6);
+        List<ColorHighlight> highlights = new ArrayList<>();
+        String colorString = groups[0];
+        if (targetColor == null) {
+            targetColor = colorFromName.get(colorString);
+            if (targetColor == null) {
+                LOGGER.error("[Skyblocker] Couldn't find dye color corresponding to \"" + colorString + "\"");
+                return Collections.emptyList();
+            }
+        }
+        for (Map.Entry<Integer, ItemStack> slot : slots.entrySet()) {
+            ItemStack itemStack = slot.getValue();
+            if (!itemStack.hasEnchantments() && targetColor.equals(itemColor.get(itemStack.getItem())))
+                highlights.add(new ColorHighlight(slot.getKey(), GREEN_HIGHLIGHT));
+        }
+        return highlights;
     }
 }

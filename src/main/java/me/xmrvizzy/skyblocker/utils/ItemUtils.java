@@ -13,7 +13,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ItemUtils {
+public class ItemUtils
+{
+
+    private final static Pattern WHITESPACES = Pattern.compile("^\\s*$");
+    private static final Pattern ITEM_COOLDOWN_PATTERN = Pattern.compile("Cooldown: ([0-9]+)s");
+    private static final Pattern ALTERNATE_COOLDOWN_PATTERN = Pattern.compile("([0-9]+) Second Cooldown");
 
     public static List<Text> getTooltip(ItemStack item) {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -21,8 +26,6 @@ public class ItemUtils {
             return item.getTooltip(client.player, TooltipContext.Default.NORMAL);
         return Collections.emptyList();
     }
-
-    private final static Pattern WHITESPACES = Pattern.compile("^\\s*$");
 
     public static List<String> getTooltipStrings(ItemStack item) {
         List<Text> lines = getTooltip(item);
@@ -56,12 +59,9 @@ public class ItemUtils {
         return Collections.emptyList();
     }
 
-    private static final Pattern ITEM_COOLDOWN_PATTERN = Pattern.compile("Cooldown: ([0-9]+)s");
-    private static final Pattern ALTERNATE_COOLDOWN_PATTERN = Pattern.compile("([0-9]+) Second Cooldown");
-
     public static int getLoreCooldown(ItemStack item) {
         for (String loreString : getLore(item)) {
-            String strippedString = loreString; // TODO: Strip colours
+            String strippedString = Utils.stripColour(loreString);
             Matcher matcher = ITEM_COOLDOWN_PATTERN.matcher(strippedString);
             if (!matcher.matches()) {
                 matcher = ALTERNATE_COOLDOWN_PATTERN.matcher(strippedString);

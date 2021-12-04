@@ -14,12 +14,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class Utils {
+public class Utils
+{
     public static boolean isSkyblock = false;
     public static boolean isDungeons = false;
     public static boolean isInjected = false;
+    private static Pattern COLOUR_PATTERN = Pattern.compile("§[0-9A-FK-OR]", Pattern.CASE_INSENSITIVE);
 
     public static void sbChecker() {
         List<String> sidebar = getSidebar();
@@ -27,14 +31,13 @@ public class Utils {
 
         if (sidebar.isEmpty()) return;
         if (sidebar.get(sidebar.size() - 1).equals("www.hypixel.net")) {
-            if (sidebar.get(0).contains("SKYBLOCK")){
-                if(!isInjected){
+            if (sidebar.get(0).contains("SKYBLOCK")) {
+                if (!isInjected) {
                     isInjected = true;
                     ItemTooltipCallback.EVENT.register(PriceInfoTooltip::onInjectTooltip);
                 }
                 isSkyblock = true;
-            }
-            else isSkyblock = false;
+            } else isSkyblock = false;
 
             isDungeons = isSkyblock && string.contains("The Catacombs");
 
@@ -56,8 +59,8 @@ public class Utils {
 
         Collection<ScoreboardPlayerScore> scores = scoreboard.getAllPlayerScores(sidebar);
         List<ScoreboardPlayerScore> list = scores.stream()
-                .filter(input -> input != null && input.getPlayerName() != null && !input.getPlayerName().startsWith("#"))
-                .collect(Collectors.toList());
+            .filter(input -> input != null && input.getPlayerName() != null && !input.getPlayerName().startsWith("#"))
+            .collect(Collectors.toList());
 
         if (list.size() > 15) {
             scores = Lists.newArrayList(Iterables.skip(list, scores.size() - 15));
@@ -77,5 +80,12 @@ public class Utils {
         Collections.reverse(lines);
 
         return lines;
+    }
+
+    public static String stripColour(String string) {
+        Matcher matcher = COLOUR_PATTERN.matcher(string);
+        if (!matcher.matches())
+            return string;
+        return matcher.replaceAll("");
     }
 }

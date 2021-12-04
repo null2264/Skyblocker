@@ -17,9 +17,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static com.mojang.brigadier.builder.LiteralArgumentBuilder.literal;
 
 @Mixin(ClientPlayNetworkHandler.class)
-public class ClientPlayNetworkHandlerMixin {
+public class ClientPlayNetworkHandlerMixin
+{
 
-    @Shadow private CommandDispatcher<CommandSource> commandDispatcher;
+    @Shadow
+    private CommandDispatcher<CommandSource> commandDispatcher;
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(MinecraftClient client, Screen screen, ClientConnection connection, GameProfile profile, CallbackInfo ci) {

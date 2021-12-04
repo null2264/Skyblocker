@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Config(name = "skyblocker")
-public class SkyblockerConfig implements ConfigData {
+public class SkyblockerConfig implements ConfigData
+{
 
     @ConfigEntry.Category("general")
     @ConfigEntry.Gui.TransitiveObject
@@ -24,7 +25,16 @@ public class SkyblockerConfig implements ConfigData {
     @ConfigEntry.Gui.TransitiveObject
     public Messages messages = new Messages();
 
-    public static class General {
+    public static void init() {
+        AutoConfig.register(SkyblockerConfig.class, GsonConfigSerializer::new);
+    }
+
+    public static SkyblockerConfig get() {
+        return AutoConfig.getConfigHolder(SkyblockerConfig.class).getConfig();
+    }
+
+    public static class General
+    {
         public String apiKey;
 
         @ConfigEntry.Category("bars")
@@ -35,11 +45,13 @@ public class SkyblockerConfig implements ConfigData {
         public List<Integer> lockedSlots = new ArrayList<>();
     }
 
-    public static class Bars {
+    public static class Bars
+    {
         public boolean enableBars = true;
     }
 
-    public static class Locations {
+    public static class Locations
+    {
         @ConfigEntry.Category("dungeons")
         @ConfigEntry.Gui.CollapsibleObject(startExpanded = true)
         public Dungeons dungeons = new Dungeons();
@@ -49,7 +61,8 @@ public class SkyblockerConfig implements ConfigData {
         public DwarvenMines dwarvenMines = new DwarvenMines();
     }
 
-    public static class Dungeons {
+    public static class Dungeons
+    {
         public boolean enableMap = true;
         public boolean solveThreeWeirdos = true;
         public boolean blazesolver = true;
@@ -59,32 +72,27 @@ public class SkyblockerConfig implements ConfigData {
         public Terminals terminals = new Terminals();
     }
 
-    public static class Terminals {
+    public static class Terminals
+    {
         public boolean solveColor = true;
         public boolean solveOrder = true;
         public boolean solveStartsWith = true;
     }
 
-    public static class DwarvenMines {
+    public static class DwarvenMines
+    {
         public boolean enableDrillFuel = true;
         public boolean solveFetchur = true;
         public boolean solvePuzzler = true;
     }
 
-    public static class Messages {
+    public static class Messages
+    {
         public boolean hideAbility = false;
         public boolean hideHeal = false;
         public boolean hideAOTE = false;
         public boolean hideImplosion = false;
         public boolean hideMoltenWave = false;
         public boolean hideAds = false;
-    }
-
-    public static void init() {
-        AutoConfig.register(SkyblockerConfig.class, GsonConfigSerializer::new);
-    }
-
-    public static SkyblockerConfig get() {
-        return AutoConfig.getConfigHolder(SkyblockerConfig.class).getConfig();
     }
 }

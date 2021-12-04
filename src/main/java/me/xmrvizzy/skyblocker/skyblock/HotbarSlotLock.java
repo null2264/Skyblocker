@@ -10,14 +10,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
-public class HotbarSlotLock {
+public class HotbarSlotLock
+{
     public static KeyBinding hotbarSlotLock;
 
     public static void init() {
         hotbarSlotLock = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.hotbarSlotLock",
-                GLFW.GLFW_KEY_L,
-                "key.categories.skyblocker"
+            "key.hotbarSlotLock",
+            GLFW.GLFW_KEY_L,
+            "key.categories.skyblocker"
         ));
     }
 

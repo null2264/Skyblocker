@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StartsWithTerminal extends ContainerSolver {
+public class StartsWithTerminal extends ContainerSolver
+{
     public StartsWithTerminal() {
         super("^What starts with: '([A-Z])'\\?$");
     }
@@ -24,9 +25,9 @@ public class StartsWithTerminal extends ContainerSolver {
         trimEdges(slots, 6);
         String prefix = groups[0];
         List<ColorHighlight> highlights = new ArrayList<>();
-        for(Map.Entry<Integer, ItemStack> slot : slots.entrySet()) {
+        for (Map.Entry<Integer, ItemStack> slot : slots.entrySet()) {
             ItemStack stack = slot.getValue();
-            if(!stack.hasEnchantments() && stack.getName().getString().startsWith(prefix))
+            if (!stack.hasEnchantments() && stack.getName().getString().startsWith(prefix))
                 highlights.add(new ColorHighlight(slot.getKey(), GREEN_HIGHLIGHT));
         }
         return highlights;

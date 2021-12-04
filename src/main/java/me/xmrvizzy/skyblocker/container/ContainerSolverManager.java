@@ -17,7 +17,8 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ContainerSolverManager extends DrawableHelper {
+public class ContainerSolverManager extends DrawableHelper
+{
     private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("");
     private final ContainerSolver[] solvers;
     private ContainerSolver currentSolver = null;
@@ -26,9 +27,9 @@ public class ContainerSolverManager extends DrawableHelper {
 
     public ContainerSolverManager() {
         solvers = new ContainerSolver[]{
-                new ColorTerminal(),
-                new OrderTerminal(),
-                new StartsWithTerminal(),
+            new ColorTerminal(),
+            new OrderTerminal(),
+            new StartsWithTerminal(),
         };
     }
 

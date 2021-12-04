@@ -13,9 +13,10 @@ import net.minecraft.util.Identifier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FancyStatusBars extends DrawableHelper {
+public class FancyStatusBars extends DrawableHelper
+{
     private static final MinecraftClient client = MinecraftClient.getInstance();
-    private static final Identifier BARS = new Identifier(SkyblockerMod.NAMESPACE,"textures/gui/bars.png");
+    private static final Identifier BARS = new Identifier(SkyblockerMod.NAMESPACE, "textures/gui/bars.png");
     private static final Pattern ACTION_BAR_STATUS = Pattern.compile("^§[6c](?<curHP>[0-9]+)/(?<maxHP>[0-9]+)❤(?:\\+§c(?<upHP>[0-9]+)\\S)? (?: {2,}(?:§a(?<curDef>[0-9]+)§a❈ Defense|(?<other>\\S+(?: \\S+)*)))? {3,}(?:§b(?<curMP>[0-9]+)/(?<maxMP>[0-9]+)✎ Mana|(?<invMPName>\\S+(?: \\S+)*))(?: {3,}(?<invMP>\\S+(?: \\S+)*))?(?<EOL>.*)$");
     private final Resource health;
     private final Resource mana;
@@ -28,32 +29,32 @@ public class FancyStatusBars extends DrawableHelper {
     }
 
     public boolean update(String actionBar) {
-        if(!SkyblockerConfig.get().general.bars.enableBars)
+        if (!SkyblockerConfig.get().general.bars.enableBars)
             return false;
         Matcher matcher = ACTION_BAR_STATUS.matcher(actionBar);
-        if(!matcher.matches())
+        if (!matcher.matches())
             return false;
-	// Health
+        // Health
         health.set(matcher.group("curHP"), matcher.group("maxHP"));
-	// Defense
-        if(matcher.group("curDef") != null)
+        // Defense
+        if (matcher.group("curDef") != null)
             defense = Integer.parseInt(matcher.group("curDef"));
-	// Mana
-        if(matcher.group("curMP") != null) {
+        // Mana
+        if (matcher.group("curMP") != null) {
             mana.set(matcher.group("curMP"), matcher.group("maxMP"));
-            if(matcher.group("invMPName") != null)
+            if (matcher.group("invMPName") != null)
                 mana.add(Integer.parseInt(matcher.group("invMPName")));
         }
 
         StringBuilder sb = new StringBuilder();
-	// Probably not Defense
+        // Probably not Defense
         appendIfNotNull(sb, matcher.group("other"));
-	// Probably not Mana
+        // Probably not Mana
         appendIfNotNull(sb, matcher.group("invMP"));
-	// Other stuff after Mana
+        // Other stuff after Mana
         appendIfNotNull(sb, matcher.group("EOL"));
 
-        if(!sb.isEmpty()) {
+        if (!sb.isEmpty()) {
             assert client.player != null;
             client.player.sendMessage(Text.of(sb.toString()), true);
         }
@@ -62,15 +63,15 @@ public class FancyStatusBars extends DrawableHelper {
     }
 
     private void appendIfNotNull(StringBuilder sb, String str) {
-        if(str == null)
+        if (str == null)
             return;
-        if(!sb.isEmpty())
+        if (!sb.isEmpty())
             sb.append("    ");
         sb.append(str);
     }
 
     public boolean render(MatrixStack matrices, int scaledWidth, int scaledHeight) {
-        if(!SkyblockerConfig.get().general.bars.enableBars)
+        if (!SkyblockerConfig.get().general.bars.enableBars)
             return false;
         int left = scaledWidth / 2 - 91;
         int top = scaledHeight - 35;
@@ -124,28 +125,35 @@ public class FancyStatusBars extends DrawableHelper {
         textRenderer.draw(matrices, text, (float) x, (float) y, color);
     }
 
-    private static class Resource {
+    private static class Resource
+    {
         private int value;
         private int max;
+
         public Resource(int value, int max) {
             this.value = value;
             this.max = max;
         }
+
         public void set(String value, String max) {
             this.value = Integer.parseInt(value);
             this.max = Integer.parseInt(max);
         }
+
         public void add(int value) {
             this.value += value;
         }
+
         public int getValue() {
             return value;
         }
+
         public double getFillLevel() {
-            return Math.min(((double)value)/((double)max),  1);
+            return Math.min(((double) value) / ((double) max), 1);
         }
+
         public double getOverflow() {
-            return Math.max(((double)value)/((double)max) - 1,  0);
+            return Math.max(((double) value) / ((double) max) - 1, 0);
         }
     }
 }

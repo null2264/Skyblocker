@@ -5,10 +5,12 @@ import me.xmrvizzy.skyblocker.skyblock.dungeon.DungeonBlaze;
 import me.xmrvizzy.skyblocker.utils.Utils;
 import net.minecraft.client.MinecraftClient;
 
-public class SkyblockerMod {
+public class SkyblockerMod
+{
     public static final String NAMESPACE = "skyblocker";
     private static final SkyblockerMod instance = new SkyblockerMod();
     public final ContainerSolverManager containerSolverManager = new ContainerSolverManager();
+    private int ticks = 0;
 
     private SkyblockerMod() {
     }
@@ -16,8 +18,6 @@ public class SkyblockerMod {
     public static SkyblockerMod getInstance() {
         return instance;
     }
-
-    private int ticks = 0;
 
     public void onTick() {
         MinecraftClient client = MinecraftClient.getInstance();

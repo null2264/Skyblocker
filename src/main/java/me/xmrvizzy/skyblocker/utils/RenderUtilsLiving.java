@@ -19,35 +19,34 @@ package me.xmrvizzy.skyblocker.utils;
  */
 
 
-import java.lang.reflect.Field;
-
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3f;
+import org.apache.commons.lang3.reflect.FieldUtils;
 
-public class RenderUtilsLiving {
+import java.lang.reflect.Field;
+
+public class RenderUtilsLiving
+{
 
     private static final MinecraftClient mc = MinecraftClient.getInstance();
     private static Field shaderLightField;
 
-    /** Draws text in the world. **/
+    /**
+     * Draws text in the world.
+     **/
     public static void drawText(Text text, double x, double y, double z, double scale, boolean shadow) {
         drawText(text, x, y, z, 0, 0, scale, shadow);
     }
 
-    /** Draws text in the world. **/
+    /**
+     * Draws text in the world.
+     **/
     public static void drawText(Text text, double x, double y, double z, double offX, double offY, double scale, boolean fill) {
         MatrixStack matrices = matrixFrom(x, y, z);
 
@@ -83,7 +82,9 @@ public class RenderUtilsLiving {
         RenderSystem.disableBlend();
     }
 
-    /** Draws a 2D gui items somewhere in the world. **/
+    /**
+     * Draws a 2D gui items somewhere in the world.
+     **/
     public static void drawGuiItem(double x, double y, double z, double offX, double offY, double scale, ItemStack item) {
         if (item.isEmpty()) {
             return;
@@ -111,7 +112,7 @@ public class RenderUtilsLiving {
         mc.getBufferBuilders().getEntityVertexConsumers().draw();
 
         mc.getItemRenderer().renderItem(item, ModelTransformation.Mode.GUI, 0xF000F0,
-                OverlayTexture.DEFAULT_UV, matrices, mc.getBufferBuilders().getEntityVertexConsumers(), 0);
+            OverlayTexture.DEFAULT_UV, matrices, mc.getBufferBuilders().getEntityVertexConsumers(), 0);
 
         mc.getBufferBuilders().getEntityVertexConsumers().draw();
 

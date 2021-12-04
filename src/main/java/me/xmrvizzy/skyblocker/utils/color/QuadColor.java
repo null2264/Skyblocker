@@ -3,9 +3,14 @@ package me.xmrvizzy.skyblocker.utils.color;
 
 import java.util.function.Function;
 
-public class QuadColor extends RenderColor {
+public class QuadColor extends RenderColor
+{
 
     private final Function<Integer, int[]> getColorFunc;
+
+    private QuadColor(Function<Integer, int[]> getColorFunc) {
+        this.getColorFunc = getColorFunc;
+    }
 
     public static QuadColor single(float red, float green, float blue, float alpha) {
         return QuadColor.single((int) (red * 255f), (int) (green * 255f), (int) (blue * 255f), (int) (alpha * 255f));
@@ -27,18 +32,18 @@ public class QuadColor extends RenderColor {
 
     public static QuadColor custom(float red1, float green1, float blue1, float alpha1, float red2, float green2, float blue2, float alpha2, float red3, float green3, float blue3, float alpha3, float red4, float green4, float blue4, float alpha4) {
         return QuadColor.custom(
-                (int) (red1 * 255f), (int) (green1 * 255f), (int) (blue1 * 255f), (int) (alpha1 * 255f),
-                (int) (red2 * 255f), (int) (green2 * 255f), (int) (blue2 * 255f), (int) (alpha2 * 255f),
-                (int) (red3 * 255f), (int) (green3 * 255f), (int) (blue3 * 255f), (int) (alpha3 * 255f),
-                (int) (red4 * 255f), (int) (green4 * 255f), (int) (blue4 * 255f), (int) (alpha4 * 255f));
+            (int) (red1 * 255f), (int) (green1 * 255f), (int) (blue1 * 255f), (int) (alpha1 * 255f),
+            (int) (red2 * 255f), (int) (green2 * 255f), (int) (blue2 * 255f), (int) (alpha2 * 255f),
+            (int) (red3 * 255f), (int) (green3 * 255f), (int) (blue3 * 255f), (int) (alpha3 * 255f),
+            (int) (red4 * 255f), (int) (green4 * 255f), (int) (blue4 * 255f), (int) (alpha4 * 255f));
     }
 
     public static QuadColor custom(int color1, int color2, int color3, int color4) {
         return QuadColor.custom(
-                (color1 & 0xff0000) >> 16, (color1 & 0xff00) >> 8, color1 & 0xff, color1 >> 24 & 0xff,
-                (color2 & 0xff0000) >> 16, (color2 & 0xff00) >> 8, color2 & 0xff, color2 >> 24 & 0xff,
-                (color3 & 0xff0000) >> 16, (color3 & 0xff00) >> 8, color3 & 0xff, color3 >> 24 & 0xff,
-                (color4 & 0xff0000) >> 16, (color4 & 0xff00) >> 8, color4 & 0xff, color4 >> 24 & 0xff);
+            (color1 & 0xff0000) >> 16, (color1 & 0xff00) >> 8, color1 & 0xff, color1 >> 24 & 0xff,
+            (color2 & 0xff0000) >> 16, (color2 & 0xff00) >> 8, color2 & 0xff, color2 >> 24 & 0xff,
+            (color3 & 0xff0000) >> 16, (color3 & 0xff00) >> 8, color3 & 0xff, color3 >> 24 & 0xff,
+            (color4 & 0xff0000) >> 16, (color4 & 0xff00) >> 8, color4 & 0xff, color4 >> 24 & 0xff);
     }
 
     public static QuadColor custom(int red1, int green1, int blue1, int alpha1, int red2, int green2, int blue2, int alpha2, int red3, int green3, int blue3, int alpha3, int red4, int green4, int blue4, int alpha4) {
@@ -54,10 +59,6 @@ public class QuadColor extends RenderColor {
                     return new int[]{red4, green4, blue4, alpha4};
             }
         });
-    }
-
-    private QuadColor(Function<Integer, int[]> getColorFunc) {
-        this.getColorFunc = getColorFunc;
     }
 
     public int[] getColor(int curVertex) {
@@ -93,7 +94,8 @@ public class QuadColor extends RenderColor {
         return newColor;
     }
 
-    public enum CardinalDirection {
+    public enum CardinalDirection
+    {
         NORTH(3, 0),
         EAST(0, 1),
         SOUTH(1, 2),

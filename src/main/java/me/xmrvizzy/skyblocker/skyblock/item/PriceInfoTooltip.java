@@ -23,7 +23,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
-public class PriceInfoTooltip {
+public class PriceInfoTooltip
+{
     private static JsonObject shopPricesJson;
     private static JsonObject bazaarPricesJson;
     private static JsonObject auctionPricesJson;
@@ -34,8 +35,8 @@ public class PriceInfoTooltip {
         String name = getInternalNameFromNBT(stack);
         String timestamp = getTimestamp(stack);
         List<String> listString = list.stream()
-                .map(Text::getString)
-                .collect(Collectors.toList());
+            .map(Text::getString)
+            .collect(Collectors.toList());
         try {
             if (!listString.contains("NPC Price") && shopPricesJson != null && shopPricesJson.has(name)) {
                 JsonElement getPrice = shopPricesJson.get(name);

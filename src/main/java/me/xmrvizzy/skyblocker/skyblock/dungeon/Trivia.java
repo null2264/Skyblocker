@@ -9,43 +9,9 @@ import net.minecraft.util.Formatting;
 
 import java.util.*;
 
-public class Trivia extends ChatListener {
+public class Trivia extends ChatListener
+{
     private static final Map<String, String[]> answers;
-    private List<String> solutions = Collections.emptyList();
-
-    public Trivia() {
-        super("^ +(?:([A-Za-z' ]*\\?)|§6 ([ⓐⓑⓒ]) §a([a-zA-Z0-9 ]+))$");
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return SkyblockerConfig.get().locations.dungeons.solveTrivia;
-    }
-
-    @Override
-    public boolean onMessage(String[] groups) {
-        if (groups[3] != null) {
-            if (!solutions.contains(groups[3])) {
-                ClientPlayerEntity player = MinecraftClient.getInstance().player;
-                assert player != null;
-                MinecraftClient.getInstance().player.sendMessage(new LiteralText("     " + Formatting.GOLD + groups[2] + Formatting.RED + " " + groups[3]), false);
-                return true;
-            }
-        } else
-            updateSolutions(groups[1]);
-        return false;
-    }
-
-    private void updateSolutions(String question) {
-        if (question.equals("What SkyBlock year is it?")) {
-            long currentTime = System.currentTimeMillis() / 1000L;
-            long diff = currentTime - 1560276000;
-            int year = (int) (diff / 446400 + 1);
-            solutions = Collections.singletonList("Year " + year);
-        } else {
-            solutions = Arrays.asList(answers.get(question));
-        }
-    }
 
     static {
         answers = new HashMap<>();
@@ -81,9 +47,45 @@ public class Trivia extends ChatListener {
         answers.put("Which villager in the Village gives you a Rogue Sword?", new String[]{"Jamie"});
         answers.put("How many unique minions are there?", new String[]{"55 Minions"});
         answers.put("Which of these enemies does not spawn in the Spider's Den?", new String[]{"Zombie Spider", "Cave Spider", "Wither Skeleton",
-                "Dashing Spooder", "Broodfather", "Night Spider"});
+            "Dashing Spooder", "Broodfather", "Night Spider"});
         answers.put("Which of these monsters only spawns at night?", new String[]{"Zombie Villager", "Ghast"});
         answers.put("Which of these is not a dragon in The End?", new String[]{"Zoomer Dragon", "Weak Dragon", "Stonk Dragon", "Holy Dragon", "Boomer Dragon",
-                "Booger Dragon", "Older Dragon", "Elder Dragon", "Stable Dragon", "Professor Dragon"});
+            "Booger Dragon", "Older Dragon", "Elder Dragon", "Stable Dragon", "Professor Dragon"});
+    }
+
+    private List<String> solutions = Collections.emptyList();
+
+    public Trivia() {
+        super("^ +(?:([A-Za-z' ]*\\?)|§6 ([ⓐⓑⓒ]) §a([a-zA-Z0-9 ]+))$");
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return SkyblockerConfig.get().locations.dungeons.solveTrivia;
+    }
+
+    @Override
+    public boolean onMessage(String[] groups) {
+        if (groups[3] != null) {
+            if (!solutions.contains(groups[3])) {
+                ClientPlayerEntity player = MinecraftClient.getInstance().player;
+                assert player != null;
+                MinecraftClient.getInstance().player.sendMessage(new LiteralText("     " + Formatting.GOLD + groups[2] + Formatting.RED + " " + groups[3]), false);
+                return true;
+            }
+        } else
+            updateSolutions(groups[1]);
+        return false;
+    }
+
+    private void updateSolutions(String question) {
+        if (question.equals("What SkyBlock year is it?")) {
+            long currentTime = System.currentTimeMillis() / 1000L;
+            long diff = currentTime - 1560276000;
+            int year = (int) (diff / 446400 + 1);
+            solutions = Collections.singletonList("Year " + year);
+        } else {
+            solutions = Arrays.asList(answers.get(question));
+        }
     }
 }

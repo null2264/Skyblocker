@@ -26,7 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
 @Mixin(InGameHud.class)
-public abstract class InGameHudMixin extends DrawableHelper {
+public abstract class InGameHudMixin extends DrawableHelper
+{
     private static final Identifier SLOT_LOCK = new Identifier(SkyblockerMod.NAMESPACE, "textures/gui/slot_lock.png");
 
     private final FancyStatusBars statusBars = new FancyStatusBars();
@@ -43,10 +44,10 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
     @Inject(method = "setOverlayMessage(Lnet/minecraft/text/Text;Z)V", at = @At("HEAD"), cancellable = true)
     private void onSetOverlayMessage(Text message, boolean tinted, CallbackInfo ci) {
-        if(!Utils.isSkyblock)
+        if (!Utils.isSkyblock)
             return;
         String msg = message.getString();
-        if(statusBars.update(msg))
+        if (statusBars.update(msg))
             ci.cancel();
     }
 
@@ -62,8 +63,8 @@ public abstract class InGameHudMixin extends DrawableHelper {
     public void renderHotbarItem(int i, int j, float f, PlayerEntity player, ItemStack stack, int seed, CallbackInfo ci) {
         if (Utils.isSkyblock) {
             if (HotbarSlotLock.isLocked(hotbarSlotIndex)) {
-                RenderSystem.setShaderTexture(0,SLOT_LOCK);
-                this.drawTexture(hotbarMatrices, i, j, 0, 0,16, 16);
+                RenderSystem.setShaderTexture(0, SLOT_LOCK);
+                this.drawTexture(hotbarMatrices, i, j, 0, 0, 16, 16);
             }
             hotbarSlotIndex++;
         }
@@ -77,9 +78,9 @@ public abstract class InGameHudMixin extends DrawableHelper {
 
     @Inject(method = "renderStatusBars", at = @At("HEAD"), cancellable = true)
     private void renderStatusBars(MatrixStack matrices, CallbackInfo ci) {
-        if(!Utils.isSkyblock)
+        if (!Utils.isSkyblock)
             return;
-        if(statusBars.render(matrices, scaledWidth, scaledHeight))
+        if (statusBars.render(matrices, scaledWidth, scaledHeight))
             ci.cancel();
 
         if (Utils.isDungeons && SkyblockerConfig.get().locations.dungeons.enableMap)

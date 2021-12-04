@@ -11,7 +11,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.List;
 
 @Mixin(GenericContainerScreenHandler.class)
-public abstract class GenericContainerScreenHandlerMixin extends ScreenHandler {
+public abstract class GenericContainerScreenHandlerMixin extends ScreenHandler
+{
     protected GenericContainerScreenHandlerMixin(@Nullable ScreenHandlerType<?> type, int syncId) {
         super(type, syncId);
     }

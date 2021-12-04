@@ -9,19 +9,20 @@ import me.xmrvizzy.skyblocker.skyblock.dwarven.Puzzler;
 
 import java.util.regex.Matcher;
 
-public class ChatParser {
+public class ChatParser
+{
     private final static ChatListener[] listeners = new ChatListener[]{
-            new Reparty(),
-            new ThreeWeirdos(),
-            new AoteFilter(),
-            new ImplosionFilter(),
-            new MoltenWaveFilter(),
-            new HealFilter(),
-            new AbilityFilter(),
-            new AdFilter(),
-            new Fetchur(),
-            new Puzzler(),
-            new Trivia(),
+        new Reparty(),
+        new ThreeWeirdos(),
+        new AoteFilter(),
+        new ImplosionFilter(),
+        new MoltenWaveFilter(),
+        new HealFilter(),
+        new AbilityFilter(),
+        new AdFilter(),
+        new Fetchur(),
+        new Puzzler(),
+        new Trivia(),
     };
 
     public boolean shouldFilter(String message) {

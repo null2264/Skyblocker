@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(GenericContainerScreen.class)
-public abstract class GenericContainerScreenMixin extends HandledScreen<GenericContainerScreenHandler> {
+public abstract class GenericContainerScreenMixin extends HandledScreen<GenericContainerScreenHandler>
+{
     @Shadow
     @Final
     private int rows;

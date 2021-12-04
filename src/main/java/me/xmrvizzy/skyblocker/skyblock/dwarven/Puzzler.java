@@ -7,7 +7,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 
-public class Puzzler extends ChatListener {
+public class Puzzler extends ChatListener
+{
     public Puzzler() {
         super("^§e\\[NPC] §dPuzzler§f: ((?:§d▲|§5▶|§b◀|§a▼){10})$");
     }

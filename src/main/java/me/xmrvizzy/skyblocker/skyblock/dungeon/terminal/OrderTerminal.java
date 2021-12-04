@@ -11,7 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class OrderTerminal extends ContainerSolver {
+public class OrderTerminal extends ContainerSolver
+{
     private final int PANES_NUM = 14;
     private int[] orderedSlots;
     private int currentNum = Integer.MAX_VALUE;
@@ -29,13 +30,13 @@ public class OrderTerminal extends ContainerSolver {
 
     @Override
     public List<ColorHighlight> getColors(String[] groups, Map<Integer, ItemStack> slots) {
-        if(orderedSlots == null && !orderSlots(slots))
+        if (orderedSlots == null && !orderSlots(slots))
             return Collections.emptyList();
-        while(currentNum < PANES_NUM && Items.LIME_STAINED_GLASS_PANE.equals(slots.get(orderedSlots[currentNum]).getItem()))
+        while (currentNum < PANES_NUM && Items.LIME_STAINED_GLASS_PANE.equals(slots.get(orderedSlots[currentNum]).getItem()))
             currentNum++;
         List<ColorHighlight> highlights = new ArrayList<>(3);
         int last = Integer.min(3, PANES_NUM - currentNum);
-        for(int i = 0; i < last; i++) {
+        for (int i = 0; i < last; i++) {
             highlights.add(new ColorHighlight(orderedSlots[currentNum + i], (224 - 64 * i) << 24 | 64 << 16 | 96 << 8 | 255));
         }
         return highlights;
@@ -44,12 +45,11 @@ public class OrderTerminal extends ContainerSolver {
     public boolean orderSlots(Map<Integer, ItemStack> slots) {
         trimEdges(slots, 4);
         orderedSlots = new int[PANES_NUM];
-        for(Map.Entry<Integer, ItemStack> slot : slots.entrySet()) {
-            if(Items.AIR.equals(slot.getValue().getItem())) {
+        for (Map.Entry<Integer, ItemStack> slot : slots.entrySet()) {
+            if (Items.AIR.equals(slot.getValue().getItem())) {
                 orderedSlots = null;
                 return false;
-            }
-            else
+            } else
                 orderedSlots[slot.getValue().getCount() - 1] = slot.getKey();
         }
         currentNum = 0;

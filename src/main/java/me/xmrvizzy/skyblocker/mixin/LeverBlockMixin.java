@@ -15,7 +15,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LeverBlock.class)
-public abstract class LeverBlockMixin extends WallMountedBlock {
+public abstract class LeverBlockMixin extends WallMountedBlock
+{
     protected LeverBlockMixin(Settings settings) {
         super(settings);
     }

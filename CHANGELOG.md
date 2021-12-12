@@ -3,7 +3,13 @@
 Fixes
 * Fixed fire damage (or any damage that bypass Defense) not update the health bar
 
-Full Changelog: ?
+New features
+* Added support for 1.18.x
+
+Known Issues
+* Slotlock not working
+
+Full Changelog: https://github.com/LifeIsAParadox/Skyblocker/compare/v1.4.1...v1.4.2
 ---
 # Release 1.4.1
 

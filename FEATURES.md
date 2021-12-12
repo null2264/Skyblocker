@@ -5,6 +5,6 @@
   * F7 Terminal: Order, Color, Name
 * Dwarven Mines Solver: Fetchur, Puzzler
 * Drill Fuel in Item Durability Bar
-* Hotbar Slot Lock Keybind (Select the hotbar slot you want to lock/unlock and press the button)
-* price tooltip: npc, bazaar (avg, lbin), ah, museum
-* reparty: write /rp to reparty
+* [ **BROKEN** ]Hotbar Slot Lock Keybind (Select the hotbar slot you want to lock/unlock and press the button)
+* Price Tooltip: NPC, Bazaar (avg, lbin), AH, Museum
+* Reparty: write `/rp` to reparty

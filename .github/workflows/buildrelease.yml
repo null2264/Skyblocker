@@ -71,22 +71,3 @@ jobs:
         run: |
           [[ ! "$GITHUB_REF" =~ refs/tags ]] && exit
           echo "::set-output name=value::${GITHUB_REF#refs/tags/}"
-
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args: |
-            "@here"
-            "Skyblocker ${{ steps.version_tag.outputs.value }}"
-            ""
-            "Changelog"
-            "```md"
-            "${{ steps.read_changelog.outputs.changelog }}"
-            "```"
-            ":inbox_tray: Download latest version on Modrinth or Github:"
-            "<:modrinth:900697862206287882> <${{ steps.modrinth.outputs.url }}>"
-            "<:github:900697885706952725> <${{ steps.uploadrelease.outputs.url }}>"
-            ""
-            "<https://hysky.de/>"

@@ -1,8 +1,8 @@
 
 
-<center>
-   <a href="https://github.com/null2264/Skyblocker"><img src="/logo.png" alt="Skyblocker" width="720"/></a>
-</center>
+<p align="center">
+   <a href="https://github.com/null2264/Skyblocker"><img src="/logo.png" alt="Skyblocker" width="144"/></a>
+</p align="center">
 
 <h1 align="center">Skyblocker</h1>
 

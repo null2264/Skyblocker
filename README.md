@@ -6,7 +6,7 @@
 
 <h1 align="center">Skyblocker</h1>
 
-<h3 align="center">A Hypixel Skyblock QoL mod for Minecraft Fabric 1.17+</h3>
+<h3 align="center">A Hypixel Skyblock QoL mod for Minecraft Fabric 1.18+</h3>
 
 ## About
 
